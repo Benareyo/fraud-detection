@@ -1,43 +1,30 @@
-# ─────────────────────────────────────────────
-# What this file does:
-# Every time you push code to GitHub, this runs
-# automatically on GitHub's servers to make sure
-# your code and tests still work correctly.
-# ─────────────────────────────────────────────
+name: Fraud Detection Unit Tests
 
-name: Fraud Detection Unit Tests   # Name shown on GitHub Actions tab
-
-# WHEN to run this workflow:
 on:
   push:
-    branches: [ main ]   # Run when you push to main branch
+    branches: [ main ]
   pull_request:
-    branches: [ main ]   # Run when you open a pull request
+    branches: [ main ]
 
-# WHAT to do when it runs:
 jobs:
   test:
     name: Run Unit Tests
-    runs-on: ubuntu-latest   # Use a fresh Linux machine on GitHub's servers
+    runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Download your code onto the machine
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Install the Python version we want
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
-      # Step 3: Install all your project libraries
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Step 4: Run your tests from the tests/ folder
       - name: Run tests with pytest
         run: |
           pip install pytest
